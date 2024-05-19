@@ -26,5 +26,4 @@ the list of differences between a pattern and a value.
   (metapp (>= 0.4.4))
   (metaquot (>= 0.3.0))
   (refl (>= 0.3.0))
-  (ocaml-migrate-parsetree (>= 1.5.0))
   (stdcompat (>= 10))))

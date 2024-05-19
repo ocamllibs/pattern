@@ -5,5 +5,5 @@
   (preprocess (pps metaquot.ppx))
   (library_flags (-linkall))
   (flags -open Stdcompat)
-  (libraries compiler-libs ocaml-migrate-parsetree stdcompat metapp metaquot
+  (libraries compiler-libs stdcompat metapp metaquot
     ppxlib))
