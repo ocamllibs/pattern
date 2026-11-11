@@ -1,3 +1,7 @@
+(* Use ppxlib's Longident: from OCaml 5.4, ppxlib (>= 0.37) has its own,
+   distinct from compiler-libs'. *)
+module Longident = Ppxlib.Longident
+
 let build_pat pat : Ppxlib.expression =
   [%expr Ppxlib.Ast_helper.Pat.mk [%e pat]]
 
@@ -157,7 +161,7 @@ let multiple_match_record ~loc make_matcher fields closed_flag destruct
             let extract_field
                 [%p pat_tuple_or_value ~loc
                    (List.map (pat_var_of_string ~loc) quoteds)]
-                ((label : Longident.t Location.loc), value) =
+                ((label : Ppxlib.Longident.t Location.loc), value) =
               [%e Ppxlib.Ast_helper.Exp.match_ [%expr label.txt]
                  (List.mapi (fun i ((label : Longident.t Location.loc), _) ->
                    Ppxlib.Ast_helper.Exp.case
@@ -258,7 +262,7 @@ let rec make_matcher' make_matcher (pat : Ppxlib.pattern)
         List.find_opt (fun x -> not (List.mem x binders_b)) binders_a with
       | None -> ()
       | Some x ->
-          Location.raise_errorf ~loc:a.pexp_loc
+          Ppxlib.Location.raise_errorf ~loc:a.pexp_loc
             "%s is bound here but is not bound in the right-hand side"
             x
       end;
@@ -266,7 +270,7 @@ let rec make_matcher' make_matcher (pat : Ppxlib.pattern)
         List.find_opt (fun x -> not (List.mem x binders_a)) binders_b with
       | None -> ()
       | Some x ->
-          Location.raise_errorf ~loc:b.pexp_loc
+          Ppxlib.Location.raise_errorf ~loc:b.pexp_loc
             "%s is bound here but is not bound in the left-hand side"
             x
       end;
@@ -302,7 +306,7 @@ let rec make_matcher' make_matcher (pat : Ppxlib.pattern)
             [%e result]])
         Fun.id Fun.id
   | _ ->
-      Location.raise_errorf ~loc "unimplemented: %a" Ppxlib.Pprintast.pattern pat
+      Ppxlib.Location.raise_errorf ~loc "unimplemented: %a" Ppxlib.Pprintast.pattern pat
 
 and make_matcher_construct_with_arg make_matcher (pat : Ppxlib.pattern)
     (type_constr : Ppxlib.pattern -> Ppxlib.pattern)

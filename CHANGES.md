@@ -1,3 +1,7 @@
+# Development
+
+- Remove unused dependency to `ocaml-migrate-parsetree`
+
 # v0.3.2, 2022-11-17
 
 - Fix compatibility with ppxlib 0.26
